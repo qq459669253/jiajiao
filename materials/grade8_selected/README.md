@@ -3,12 +3,15 @@
 本套按学生在原卷选择第10题、填空第16题及第24、25题的失分，选择**现有公开资料中的题目**。保留原条件、数值和原图，重新组卷；不再以自编题作为本次主卷。建议独立做题50分钟，再在两小时家教内选择两个重点讲解。
 
 - [学生版 PDF（5页，含证明续页）](selected_student.pdf)
-- [教师版 PDF（6页，详细证明、分步评分、两小时安排）](selected_teacher.pdf)
+- [教师版 PDF（19页，逐步配图、辅助线、分条证明与两小时安排）](selected_teacher.pdf)
+- [第4题单独图解 PDF（6页，11个步骤）](question4_step_by_step.pdf) / [Word](question4_step_by_step.docx) / [在线逐步看图](question4_step_by_step.md)
 - [学生版 Word](selected_student.docx) / [教师版 Word](selected_teacher.docx)
 - [全部资料 ZIP](selected_existing_problems.zip)
 - [在线阅读答案与教案](selected_teacher.md)
 
 GitHub打开文件后，可点击 **Download raw file / 下载原始文件**；ZIP页面也可这样下载。不依赖原来的电脑在线。
+
+2026-10-13更新：四题及中点连线引理共增加30张独立重绘的教学图，每一步均附作图指令、对应的步骤证明和结论。第4题将“PM与PN分别属于哪两个三角形”“BD与CE为什么垂直”“面积怎样达到最大值”分别展开。教师PDF第11—16页是第4题，也可直接读上面的单独文件。所有教学图均提供于 [teaching_figures](teaching_figures)，Word已嵌入图片，在线答案也能逐步看图。
 
 ## 选题与失分的对应
 
@@ -40,6 +43,8 @@ GitHub打开文件后，可点击 **Download raw file / 下载原始文件**；Z
 
 2026-10-11编排改动：抽取四道题、重新编号、中文和数学符号排版、缩放原图；新增本次分值、建议用时、说明理由的要求、答案证明、教学安排及即时回练。条件、数值与原图几何内容未改。即时回练是遮住答案后重做所选题的关键步骤，不能充当另一套陌生题迁移测试。
 
+2026-10-13编排改动：教师证明改为逐步配图；独立重绘合法位置的教学示意图并增加辅助线、刻痕、角度标注。第4题图2的垂直关系新增角度证明：设x=∠ABD=∠ACE，在△BCT中以45°-x和45°+x求出直角；自由旋转部分另用同向90°旋转说明结论仍成立。新增第4题独立PDF、Word和Markdown；原学生卷保持不变。重绘图是本次解答的教学示意图，不冒充原始试题图。
+
 原题目TeX摘录见 [sources/original_problems.tex](sources/original_problems.tex)。上游讲义附LPPL 1.3c，上游题库附GPL v3，许可全文随包保留于 `sources/LICENSE-Onion-LPPL.txt` 与 `sources/LICENSE-Ebook-GPL.txt`；相应摘录与原图保留上游来源及许可。本次独立编排、解答文本和生成脚本以GPL-3.0提供，无保证。原作者不负责本选编的错误或支持。本选编不是上游原讲义的更新版本。
 
 PDF、Word和ZIP均可用本目录的源文件重建：
@@ -48,5 +53,7 @@ PDF、Word和ZIP均可用本目录的源文件重建：
 python -m pip install reportlab python-docx pymupdf
 python build_selected_pack.py
 ```
+
+仅更新教师资料、保留现有学生文件：`python build_selected_pack.py --teacher-only`。新增的 `illustrated_teacher.py` 和 `teaching_figures` 随包提供，可重建全部步骤图。
 
 教师版另有在线Markdown，学生题面另有Markdown文本，便于修改和核对。

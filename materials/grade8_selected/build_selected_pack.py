@@ -6,6 +6,7 @@ Dependencies: reportlab, python-docx, pymupdf.
 """
 from pathlib import Path
 import zipfile
+import argparse
 import fitz
 import reportlab
 from reportlab.pdfgen import canvas
@@ -151,13 +152,13 @@ def txt(c, s, x, y, width=174*MM, size=10.5, lead=17):
     return y
 
 
-def header(c, title, subtitle, page):
+def header(c, title, subtitle, page, revision='2026-10-11'):
     txt(c, title, 18*MM, 279*MM, size=17, lead=20)
     txt(c, subtitle, 18*MM, 270*MM, size=9, lead=13)
     c.setLineWidth(.4)
     c.setStrokeColorRGB(.4, .45, .5)
     c.line(18*MM, 264*MM, 192*MM, 264*MM)
-    txt(c, '现有题选编｜出处与编排说明见同目录README｜2026-10-11', 18*MM, 12*MM, size=8, lead=10)
+    txt(c, '现有题选编｜出处与编排说明见同目录README｜'+revision, 18*MM, 12*MM, size=8, lead=10)
     c.setFont(FONT, 9)
     c.drawRightString(192*MM, 12*MM, str(page))
 
@@ -218,18 +219,10 @@ def student_pdf():
 
 
 def teacher_pdf():
-    c = canvas.Canvas(str(ROOT/'selected_teacher.pdf'), pagesize=(W, H))
-    c.setTitle('现有题进阶摸底：答案、分步评分与两小时教案')
-    for page, (title, sections) in enumerate(GUIDE, 1):
-        header(c, '现有题选编：教师答案与两小时教案', '与selected_student.pdf配套｜按失分类型选择讲解重点', page)
-        y = txt(c, title, 18*MM, 254*MM, size=13, lead=19) - 7
-        for sub, body in sections:
-            y = txt(c, sub, 18*MM, y, size=11, lead=17)
-            y = txt(c, body, 18*MM, y-2, size=10, lead=15) - 9
-        if y < 23*MM:
-            raise ValueError(f'Teacher page {page} crosses footer: {y/MM:.1f}mm')
-        c.showPage()
-    c.save()
+    import illustrated_teacher as illustrated
+    illustrated.figures(ROOT, txt)
+    illustrated.pdf(ROOT, GUIDE, txt, header)
+    illustrated.pdf(ROOT, GUIDE, txt, header, only_q4=True)
 
 
 def word_base(title):
@@ -270,24 +263,15 @@ def word_files():
     for _ in range(20):
         d.add_paragraph('________________________________________________________________')
     d.save(ROOT/'selected_student.docx')
-    d = word_base('现有题选编：教师答案与两小时教案')
-    for i, (title, sections) in enumerate(GUIDE):
-        if i:
-            d.add_page_break()
-        d.add_heading(title, level=0)
-        for sub, body in sections:
-            d.add_heading(sub, level=2)
-            d.add_paragraph(body)
-    d.save(ROOT/'selected_teacher.docx')
+    import illustrated_teacher as illustrated
+    illustrated.word(ROOT, GUIDE, word_base)
+    illustrated.word(ROOT, GUIDE, word_base, only_q4=True)
 
 
 def markdown_files():
-    text = '# 现有题选编：答案与两小时教案\n\n出处、版本及许可证见 [README.md](README.md)。\n\n'
-    for title, sections in GUIDE:
-        text += f'## {title}\n\n'
-        for sub, body in sections:
-            text += f'### {sub}\n\n{body}\n\n'
-    (ROOT/'selected_teacher.md').write_text(text.rstrip()+'\n', encoding='utf-8')
+    import illustrated_teacher as illustrated
+    illustrated.markdown(ROOT, GUIDE)
+    illustrated.markdown(ROOT, GUIDE, only_q4=True)
     text = '# 学生题面文本源\n\n这是现有题的中文重排文本。具体出处及改动见README.md，原始TeX摘录及原图见sources。\n\n'
     for q in PROBLEMS:
         text += f"## {q['title']}\n\n{q['source']}\n\n{q['text']}\n\n{q['note']}\n\n"
@@ -303,10 +287,21 @@ def bundle():
 
 
 if __name__ == '__main__':
-    render_source_figures()
-    student_pdf()
-    teacher_pdf()
-    word_files()
-    markdown_files()
+    parser=argparse.ArgumentParser(description='Build selected math assessment materials.')
+    parser.add_argument('--teacher-only',action='store_true',help='Update illustrated teacher files, preserving student documents.')
+    args=parser.parse_args()
+    if args.teacher_only:
+        import illustrated_teacher as illustrated
+        teacher_pdf()
+        illustrated.word(ROOT, GUIDE, word_base)
+        illustrated.word(ROOT, GUIDE, word_base, only_q4=True)
+        illustrated.markdown(ROOT, GUIDE)
+        illustrated.markdown(ROOT, GUIDE, only_q4=True)
+    else:
+        render_source_figures()
+        student_pdf()
+        teacher_pdf()
+        word_files()
+        markdown_files()
     bundle()
     print('Built student PDF/Word, teacher PDF/Word/Markdown and ZIP.')
