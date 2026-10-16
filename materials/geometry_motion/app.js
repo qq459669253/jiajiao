@@ -201,5 +201,18 @@
     requestAnimationFrame(animate);
   }
   window.mathMotion={inspect:()=>({state:{...state},model:current}),setValue,selectQuestion};
-  render(true);requestAnimationFrame(animate);
+  // Hide the static fallback only after the whole first frame renders.
+  // Local iOS Quick Look can display the HTML while suppressing its scripts.
+  $('scene').classList.remove('hidden');
+  try {
+    render(true);
+  } catch(error) {
+    $('scene').classList.add('hidden');
+    throw error;
+  }
+  $('static-preview').classList.add('hidden');
+  $('runtime-notice').classList.add('hidden');
+  document.body.classList.remove('preview-pending');
+  document.querySelectorAll('[data-runtime-control]').forEach(e=>e.disabled=false);
+  requestAnimationFrame(animate);
 })();

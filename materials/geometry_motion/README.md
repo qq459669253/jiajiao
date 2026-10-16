@@ -2,9 +2,25 @@
 
 配合[进阶摸底卷与逐步图解](../grade8_selected/README.md)，制作可直接拖动、调滑块和自动播放的课堂演示。默认打开第4题。
 
-- [交互演示HTML](index.html)：点击GitHub页面的 **Download raw file／下载原始文件**，保存为 `index.html` 后用Chrome、Edge、Safari等浏览器打开。整个演示包含在一个文件内，打开后不需要联网。
-- [下载整个演示包](geometry_motion.zip)：解压后打开里面的 `index.html`。
+- [交互演示HTML](index.html)：电脑端可点击GitHub页面的 **Download raw file／下载原始文件**，保存为 `index.html` 后用浏览器打开。整个演示包含在一个文件内，运行时不需要联网。iPhone/iPad请看下面的打开方法。
+- [下载演示包](geometry_motion.zip)：包内仅放可直接使用的文件，解压后打开 `index.html`；不再混入容易误开的开发模板。
 - [第4题GIF动画预览](question4_rotation.gif)：可直接在GitHub里观看；GIF本身不能拖动，可调节版请打开HTML。
+
+## iPhone与iPad怎么打开
+
+iOS“文件”App直接打开HTML时，常使用Quick Look快速预览，可能不执行JavaScript。该演示的动点和图形由JavaScript计算，因此会出现页面文字能看到、图形或控制不能使用的情况。它与在Safari里访问正常网页不是同一种运行方式；从“文件”分享或预览也不能保证切换到可执行脚本的页面。
+
+2026-10-16兼容更新：不运行脚本时，页面仍会显示嵌入文件内的静态图，以及明确的打开方法提示；互动按钮会保持禁用。成功运行脚本后，才切换到动态图并启用控件。这样不会把静态预览误当成已经可操作的演示。
+
+要在iPhone/iPad上拖动，推荐启用本仓库的GitHub Pages，然后**在Safari打开在线地址**。发布入口和静态站点文件已准备好，仓库管理员只需设置一次：
+
+1. 打开[仓库的Pages设置](https://github.com/qq459669253/jiajiao/settings/pages)。
+2. 在“Build and deployment”中，Source选“Deploy from a branch”，Branch选`main`，目录选`/(root)`，点击Save。
+3. 等设置页显示发布成功后，在Safari打开 `https://qq459669253.github.io/jiajiao/`，它会进入动态图。
+
+上面是启用后的预期网址，是否已发布以GitHub Pages设置页为准；当前执行环境无法访问Pages配置接口或验证该网站的发布状态。本说明不把“已上传文件”当作“网站已上线”。
+
+如果暂时只需要观看运动过程，可直接打开[GIF预览](question4_rotation.gif)；需要逐步证明可看[图解教师答案](../grade8_selected/selected_teacher.pdf)。
 
 ## 可以怎样操作
 
@@ -38,5 +54,7 @@ python build_motion.py
 ```
 
 演示不使用CDN、外部字体或联网服务。浏览器内的实测值采用小数近似显示，底层图形始终按题目约束重新计算。
+
+`static_preview.png`是随源代码保存的默认静态图，构建时以data URI嵌入HTML，供不运行脚本的预览器显示。开发源文件保留在仓库中；下载包只包含成品HTML、说明、GIF和许可文件。
 
 开发核对可运行 `python verify_motion.py`（需要Playwright及Chromium），检查1206组几何位置、四题鼠标拖动、播放暂停、步骤切换、离线执行、手机触控与SVG导出。动画预览由实际交互页面渲染：`python render_preview.py`（另需Pillow）；之后重新运行 `python build_motion.py` 将GIF加入下载包。

@@ -15,10 +15,15 @@ button,input,select{font:inherit}button,select,input[type=range],label{cursor:po
 @media(max-width:720px){.shell{padding:23px 13px}h1{font-size:27px}.stamp{display:none}.tabs{display:grid;grid-template-columns:1fr 1fr;margin:22px 0 14px}.tabs button{text-align:left;font-size:13px;padding:9px 10px}.workspace{grid-template-columns:1fr}.board-head{padding:15px 16px 0}.board svg{min-height:285px}.panel{padding:18px}.metrics{grid-template-columns:repeat(3,1fr)}.metric:last-child:nth-child(odd){grid-column:auto}.metric dd{font-size:18px}.step-tabs{display:grid;grid-template-columns:1fr 1fr}.steps{padding:17px 15px}.step-tabs button{text-align:left}.board-foot{padding:10px 14px}.intro{font-size:12px}.step-copy{font-size:13px}}
 </style>
 <style>@media(max-width:720px){.board svg{aspect-ratio:700/680;min-height:0}}</style>
+<style>
+.runtime-notice{margin-top:20px;padding:13px 16px;background:#fff1d9;border:1px solid #e7cc9e;border-radius:11px;font-size:13px;color:#70512b}.runtime-notice p{margin:4px 0}.runtime-notice a{color:inherit;text-underline-offset:3px}.static-preview img{display:block;width:100%;height:auto}.preview-pending button,.preview-pending input,.preview-pending select{opacity:.4;pointer-events:none}
+.preview-pending .panel,.preview-pending .steps{display:none}.preview-pending .workspace{grid-template-columns:minmax(0,1fr)}
+</style>
 </head>
-<body>
+<body class="preview-pending">
 <main class="shell">
 <header><div><p class="eyebrow">初二数学 · 全等与旋转</p><h1>把图形动起来</h1><p class="intro">拖动一个点，看看整幅图怎样变化，再解释那些始终不变的关系。</p></div><span class="stamp">拖动 · 观察 · 解释</span></header>
+<section id="runtime-notice" class="runtime-notice" role="status"><strong>当前显示静态预览，互动功能尚未启动。</strong><p>iPhone/iPad的“文件”预览可能不执行绘图脚本。需要拖动和播放时，请在Safari打开在线网页。</p><p><a href="https://github.com/qq459669253/jiajiao/tree/main/materials/geometry_motion#iphone与ipad怎么打开" target="_blank" rel="noopener">查看iPhone与iPad的打开方法</a></p></section>
 <nav class="tabs" aria-label="切换题目" role="tablist">
  <button type="button" role="tab" data-q="1" aria-selected="false"><span class="num">01</span>旋转与最短路径</button>
  <button type="button" role="tab" data-q="2" aria-selected="false"><span class="num">02</span>动点与中点轨迹</button>
@@ -27,8 +32,9 @@ button,input,select{font:inherit}button,select,input[type=range],label{cursor:po
 </nav>
 <div class="workspace">
  <section class="board" aria-label="动态图形">
-  <div class="board-head"><h2 id="figure-title"></h2><p class="drag-hint" id="drag-hint"></p></div>
-  <svg id="scene" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 610" role="img" aria-label="可调节的几何图形"></svg>
+  <div class="board-head"><h2 id="figure-title">第4题 · 旋转、中点与面积</h2><p class="drag-hint" id="drag-hint">静态预览：旋转38°</p></div>
+  <div id="static-preview" class="static-preview"><img src="__STATIC_PREVIEW__" width="720" height="700" alt="第4题静态图：D旋转38度时，E及中点M、P、N的对应位置；PM与PN相等且互相垂直。"></div>
+  <svg id="scene" class="hidden" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 610" role="img" aria-label="可调节的几何图形"></svg>
   <div class="board-foot"><div class="legend"><span><i class="red"></i>本步重点</span><span><i class="blue"></i>对应对象</span><span><i class="gold"></i>可拖动的点</span></div><button type="button" class="small-button" id="save">保存当前图</button></div>
  </section>
  <aside class="panel" aria-label="动点控制与实时数值">

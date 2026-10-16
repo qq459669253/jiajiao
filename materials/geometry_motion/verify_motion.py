@@ -20,6 +20,9 @@ def run():
         page.on('pageerror',lambda e:errors.append(str(e)))
         page.on('request',lambda req:requests.append(req.url))
         page.set_content((ROOT/'index.html').read_text(encoding='utf-8'))
+        assert page.locator('#runtime-notice').is_hidden()
+        assert page.locator('#static-preview').is_hidden()
+        assert page.locator('#position').is_enabled()
         cases=page.evaluate('''() => {
           const G=Geometry,close=(a,b)=>{if(Math.abs(a-b)>1e-7)throw Error(a+' differs from '+b)},len=(a,b)=>Math.hypot(a[0]-b[0],a[1]-b[1]);
           const angle=(a,b,c)=>{const u=[a[0]-b[0],a[1]-b[1]],v=[c[0]-b[0],c[1]-b[1]];const ratio=(u[0]*v[0]+u[1]*v[1])/(Math.hypot(...u)*Math.hypot(...v));return Math.acos(Math.max(-1,Math.min(1,ratio)))};
@@ -101,10 +104,19 @@ def run():
         with page.expect_download() as dl:page.locator('#save').click()
         with tempfile.TemporaryDirectory() as tmp:
             path=Path(tmp)/'export.svg';dl.value.save_as(path);text=path.read_text();assert '<svg' in text and 'viewBox="0 0 700 680"' in text
+        # Reproduce the key limitation of file preview: HTML without scripts.
+        preview_context=browser.new_context(java_script_enabled=False,offline=True,viewport={'width':390,'height':844})
+        preview=preview_context.new_page()
+        preview.set_content((ROOT/'index.html').read_text(encoding='utf-8'))
+        assert preview.locator('#runtime-notice').is_visible()
+        assert preview.locator('#static-preview img').is_visible()
+        assert preview.locator('#position').is_disabled()
+        assert preview.locator('#scene').is_hidden()
+        preview_context.close()
         assert not errors,errors
         assert not requests,requests
         browser.close()
-        print(f'PASS: {cases} geometry cases; mouse dragging for all 4 questions; playback/pause; stages; toggles; SVG export; offline execution; mobile touch and layout.')
+        print(f'PASS: {cases} geometry cases; all 4 drag interactions; playback/pause; stages; toggles; SVG export; offline execution; mobile touch and layout; script-disabled preview fallback.')
 
 
 if __name__=='__main__':run()
