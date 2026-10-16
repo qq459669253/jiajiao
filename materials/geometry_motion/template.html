@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#214e43">
+<title>数学动起来 · 全等、旋转与动点</title>
+<style>
+*{box-sizing:border-box} :root{--ink:#223730;--muted:#63776e;--line:#dbe4dc;--green:#214e43;--accent:#dca765;--red:#bc4b47;--blue:#326db2;--paper:#fffefa;--bg:#f3f5ef}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,"Noto Sans CJK SC","Microsoft YaHei",sans-serif;font-size:15px;line-height:1.6}
+button,input,select{font:inherit}button,select,input[type=range],label{cursor:pointer}button{color:inherit}button:focus-visible,a:focus-visible,select:focus-visible,input:focus-visible{outline:3px solid #db9c4b;outline-offset:4px}
+.shell{max-width:1320px;padding:34px 28px 26px;margin:auto}.eyebrow{font-size:12px;letter-spacing:.16em;color:var(--green);font-weight:650;margin:0 0 6px}h1{font-size:32px;letter-spacing:-.05em;margin:0;font-weight:650}header{display:flex;justify-content:space-between;align-items:center;gap:20px}.intro{margin:7px 0 0;color:var(--muted);font-size:14px}.stamp{font-size:12px;color:var(--green);border:1px solid #b4c9ba;padding:7px 13px;border-radius:99px;white-space:nowrap}.tabs{display:flex;gap:8px;margin:26px 0 18px;flex-wrap:wrap}.tabs button{background:transparent;border:1px solid var(--line);border-radius:11px;padding:10px 16px;color:var(--muted)}.tabs button[aria-selected=true]{background:var(--green);color:white;border-color:var(--green)}.num{display:inline-grid;place-items:center;width:23px;height:23px;border-radius:7px;background:#fff2;margin-right:7px;font-size:12px}
+.workspace{display:grid;grid-template-columns:minmax(0,1fr) 320px;gap:18px;align-items:start}.board,.panel{background:var(--paper);border:1px solid var(--line);border-radius:18px;overflow:hidden}.board-head{padding:18px 22px 0;display:flex;align-items:center;justify-content:space-between;gap:14px}.board h2{font-size:17px;font-weight:650;margin:0}.drag-hint{font-size:12px;color:var(--muted);margin:0}.board svg{display:block;width:100%;height:auto;aspect-ratio:920/610;touch-action:none;user-select:none}.board-foot{border-top:1px solid var(--line);padding:13px 21px;display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;color:var(--muted);font-size:12px}.legend{display:flex;gap:14px;flex-wrap:wrap}.legend i{width:10px;height:10px;display:inline-block;border-radius:3px;margin-right:5px}.red{background:var(--red)}.blue{background:var(--blue)}.gold{background:#d59a43}.small-button{border:0;background:none;padding:0;color:var(--green);font-size:12px;text-decoration:underline;text-underline-offset:4px}.panel{padding:20px}.panel h3{margin:0 0 15px;font-size:15px;font-weight:650}.control-label{display:flex;justify-content:space-between;align-items:center;gap:8px;font-size:13px}.value{font-variant-numeric:tabular-nums;font-size:23px;font-weight:600;white-space:nowrap}.range{width:100%;accent-color:var(--green);margin:18px 0 6px;height:20px}.range-labels{display:flex;justify-content:space-between;color:var(--muted);font-size:11px}.buttons{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:15px}.buttons button{border:1px solid var(--line);border-radius:9px;background:white;padding:9px 8px;font-size:13px}.buttons .primary{background:var(--green);border-color:var(--green);color:#fff}.special{width:100%;margin-top:9px;border:1px solid #dec49e;background:#fcf3e5;border-radius:9px;padding:9px;font-size:13px;color:#71512c}.variant{width:100%;margin:0 0 16px;padding:9px;border:1px solid var(--line);border-radius:8px;background:#fff}.toggles{display:flex;gap:8px 15px;margin:17px 0;flex-wrap:wrap;font-size:12px;color:var(--muted)}.toggles label{display:flex;align-items:center;gap:4px;white-space:nowrap}input[type=checkbox]{accent-color:var(--green);width:15px;height:15px}.divide{height:1px;background:var(--line);margin:19px 0}.metrics{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin:0}.metric{background:#f3f6f0;border-radius:9px;padding:10px 12px}.metric dt{font-size:11px;color:var(--muted)}.metric dd{margin:2px 0 0;font-size:20px;font-variant-numeric:tabular-nums;line-height:1.5}.metric:last-child:nth-child(odd){grid-column:1/-1}.facts{font-size:12px;color:var(--green);margin:14px 0 0}.fact{padding:3px 0}.steps{background:var(--paper);border:1px solid var(--line);border-radius:16px;margin-top:18px;padding:19px 22px}.step-tabs{display:flex;gap:8px;flex-wrap:wrap}.step-tabs button{border:1px solid var(--line);background:transparent;border-radius:8px;padding:8px 12px;font-size:12px}.step-tabs button[aria-pressed=true]{background:#e9f0e6;border-color:#9db59e;color:var(--green)}.step-copy{font-size:14px;margin:16px 0 0;max-width:950px}.observe{margin:11px 0 0;padding:11px 14px;border-left:3px solid var(--accent);background:#faf5ea;font-size:13px;color:#675a42}.source{font-size:11px;color:var(--muted);margin:18px 3px 0}.source a{color:var(--muted);text-underline-offset:3px}.corner-note{font-size:11px;color:var(--muted);margin:13px 0 0}.hidden{display:none!important}
+@media(max-width:950px){.workspace{grid-template-columns:minmax(0,1fr) 280px}.panel{padding:16px}.shell{padding:24px 18px}.board-head{padding:16px 16px 0;align-items:start;flex-direction:column;gap:2px}.board h2{font-size:15px}.tabs button{padding:9px 12px}}
+@media(max-width:720px){.shell{padding:23px 13px}h1{font-size:27px}.stamp{display:none}.tabs{display:grid;grid-template-columns:1fr 1fr;margin:22px 0 14px}.tabs button{text-align:left;font-size:13px;padding:9px 10px}.workspace{grid-template-columns:1fr}.board-head{padding:15px 16px 0}.board svg{min-height:285px}.panel{padding:18px}.metrics{grid-template-columns:repeat(3,1fr)}.metric:last-child:nth-child(odd){grid-column:auto}.metric dd{font-size:18px}.step-tabs{display:grid;grid-template-columns:1fr 1fr}.steps{padding:17px 15px}.step-tabs button{text-align:left}.board-foot{padding:10px 14px}.intro{font-size:12px}.step-copy{font-size:13px}}
+</style>
+<style>@media(max-width:720px){.board svg{aspect-ratio:700/680;min-height:0}}</style>
+</head>
+<body>
+<main class="shell">
+<header><div><p class="eyebrow">初二数学 · 全等与旋转</p><h1>把图形动起来</h1><p class="intro">拖动一个点，看看整幅图怎样变化，再解释那些始终不变的关系。</p></div><span class="stamp">拖动 · 观察 · 解释</span></header>
+<nav class="tabs" aria-label="切换题目" role="tablist">
+ <button type="button" role="tab" data-q="1" aria-selected="false"><span class="num">01</span>旋转与最短路径</button>
+ <button type="button" role="tab" data-q="2" aria-selected="false"><span class="num">02</span>动点与中点轨迹</button>
+ <button type="button" role="tab" data-q="3" aria-selected="false"><span class="num">03</span>半角与加减关系</button>
+ <button type="button" role="tab" data-q="4" aria-selected="true"><span class="num">04</span>旋转、中点与面积</button>
+</nav>
+<div class="workspace">
+ <section class="board" aria-label="动态图形">
+  <div class="board-head"><h2 id="figure-title"></h2><p class="drag-hint" id="drag-hint"></p></div>
+  <svg id="scene" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 610" role="img" aria-label="可调节的几何图形"></svg>
+  <div class="board-foot"><div class="legend"><span><i class="red"></i>本步重点</span><span><i class="blue"></i>对应对象</span><span><i class="gold"></i>可拖动的点</span></div><button type="button" class="small-button" id="save">保存当前图</button></div>
+ </section>
+ <aside class="panel" aria-label="动点控制与实时数值">
+  <h3>动点调节</h3>
+  <label for="variant" class="hidden" id="variant-label">第3题的图形位置</label>
+  <select id="variant" class="variant hidden" aria-label="第3题的图形位置"><option value="square">（1）正方形内</option><option value="general">（2）一般四边形内</option><option value="outside">（3）延长线上</option></select>
+  <div class="control-label"><label for="position" id="position-label"></label><output id="position-value" class="value" for="position"></output></div>
+  <input class="range" id="position" type="range" min="0" max="360" step="0.1" value="38">
+  <div class="range-labels"><span id="min-label"></span><span id="max-label"></span></div>
+  <div class="buttons"><button type="button" class="primary" id="play" aria-pressed="false">自动播放</button><button type="button" id="reset">回到初始</button></div>
+  <button type="button" class="special" id="special">到最大面积的位置</button>
+  <div class="toggles"><label><input type="checkbox" id="aux" checked>辅助线</label><label><input type="checkbox" id="traces">轨迹</label><label><input type="checkbox" id="numbers" checked>数值</label></div>
+  <div class="divide"></div><h3>实时观察</h3><dl id="metrics" class="metrics"></dl><div id="facts" class="facts"></div>
+  <p class="corner-note" id="given"></p>
+ </aside>
+</div>
+<section class="steps" aria-label="配合动态图的证明步骤"><div id="step-tabs" class="step-tabs"></div><p id="step-copy" class="step-copy"></p><p id="observe" class="observe"></p></section>
+<p class="source">配套现有题选编；交互教学示意图，数值为近似显示。<a href="https://github.com/qq459669253/jiajiao/blob/main/materials/grade8_selected/README.md" target="_blank" rel="noopener">题目出处与完整图解答案</a> · 2026-10-16</p>
+</main>
+<script>
+/*__GEOMETRY__*/
+</script>
+<script>
+/*__APP__*/
+</script>
+</body>
+</html>
