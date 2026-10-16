@@ -8,6 +8,7 @@
 - [学生版 Word](selected_student.docx) / [教师版 Word](selected_teacher.docx)
 - [全部资料 ZIP](selected_existing_problems.zip)
 - [在线阅读答案与教案](selected_teacher.md)
+- [新增两题：一道中等题＋一道综合压轴题，含逐步配图答案](https://github.com/qq459669253/jiajiao/tree/main/materials/grade8_extra)
 - [四题交互动态图：拖动点、调滑块、自动播放](https://github.com/qq459669253/jiajiao/tree/main/materials/geometry_motion)
 
 GitHub打开文件后，可点击 **Download raw file / 下载原始文件**；ZIP页面也可这样下载。不依赖原来的电脑在线。
