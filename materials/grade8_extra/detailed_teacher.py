@@ -72,30 +72,30 @@ LESSONS = [
          '① ∠OMN=∠ONM（上页）。\n② ∠OMN所对的边是ON，∠ONM所对的边是OM。\n③ 在同一个三角形中，等角对等边，所以ON=OM。\n④ 故△OMN是以O为顶点、MN为底边的等腰三角形。',
          '△OMN是等腰三角形，OM=ON。',
          '条件不能确定O处角度；这里没有理由进一步断言它是直角三角形。'),
-    step('第（3）问', '第1步：辅助点T是怎样反推出来的？', 'h3_construct',
-         'E是BC中点。若想让EF平行于某条新边TB，就应让F成为TC的中点。因此先反推：怎样取T才能使TF=FC？',
-         '延长CA过A至T，使AT=CD（也等于AB）；本页先只看这条直线上的长度。',
-         '① A、F、D、C依次共线，AF=FD（F是AD中点）。\n② 若T放在A外侧，则TF=TA+AF，而FC=FD+DC。\n③ 因为AF=FD，只要取TA=DC，就能使上述两段相等。\n④ 因此作T，使AT=CD。再用CD=AB，得AT=AB。\n⑤ 此时T、A、F、D、C依次共线，\n   TF=TA+AF=DC+FD=FC，所以F是TC的中点。',
-         '取T的目的：把“F是AD中点”变成“F也是TC中点”；同时得到AT=AB。',
-         'T不是凭空猜出来的：先想要TF=FC，再倒推应取TA=DC。'),
-    step('第（3）问', '第2步：60°先使哪个三角形等边？', 'h3_tab',
-         '现在E、F已成为△TBC两边的中点。先得到EF∥TB，把已知60°转移到T处；AT=AB便能接着发挥作用。',
-         '连接TB，突出△TAB，标出T处与F处对应的60°。',
-         '① 在△TBC中，E是BC中点，F是TC中点，故EF∥TB。\n② 直线TC为截线，∠BTA与∠EFC为同位角。\n   因而∠BTA=∠EFC=60°。\n③ AT=AB，故△TAB中∠TBA=∠BTA=60°。\n④ 由三角形内角和，∠TAB=180°-60°-60°=60°。\n⑤ 三个角都为60°，所以△TAB是等边三角形。',
-         '△TAB等边，∠TAB=∠BTA=∠TBA=60°，且EF∥TB。',
-         '已知的60°是∠EFC；这里必须先证EF∥TB，才可以把它搬到T。'),
-    step('第（3）问', '第3步：A处的60°怎样得到？', 'h3_at_a',
-         '最终要看△AGD，而△TAB在另一侧。先利用A点两条交叉的直线，把等边△TAB的60°转到△AGF中。',
-         '单独画出G—A—B与T—A—F两条相交直线；同色弧标出一对对顶角。',
-         '① G在BA越过A的延长线上，所以G、A、B依次共线。\n② T在CA越过A的延长线上，且F在AC上，所以T、A、F依次共线。\n③ 因而射线AG与AB反向，射线AF与AT反向。\n④ ∠GAF与∠TAB是一对对顶角，大小相等。\n⑤ 上页得到∠TAB=60°，故∠GAF=60°。',
-         '△AGF在A处的角为60°；还需再确定它的另一个角。',
-         '请先在图上指出组成∠TAB的两条射线，再找各自的反向射线。'),
-    step('第（3）问', '第4步：F处再得60°，得到第二个等边三角形', 'h3_at_f',
-         '只知道一个60°还不能认定等边。利用GF所在直线与TB平行，再得到F处的60°，才能推出GF=AF。',
-         '突出平行的TB、FG，以及截线TC；比较T处和F处的一组内错角。',
-         '① G、F、E共线，且EF∥TB，所以FG∥TB。\n② 直线TC截平行线TB、FG，∠BTA与∠AFG是一组内错角。\n   因而∠AFG=∠BTA=60°。\n③ 上页已得∠GAF=60°，所以∠AGF=180°-60°-60°=60°。\n④ △AGF三个角均为60°，故为等边三角形，AG=GF=AF。\n⑤ 原题F是AD中点，AF=FD，所以GF=FD。',
-         '△AGF等边；尤其GF=AF=FD，这是下一步判断等腰的依据。',
-         'F处的60°是∠AFG；相邻的∠GFD还没有算，它不是60°。'),
+    step('第（3）问', '第1步：倍长AE，先把AB复制到CH', 'ae_sas',
+         '沿用“倍长中线、构造全等”的方法。E是BC中点；连接AE并倍长后，能把AB复制到C处，与原有的CD比较。',
+         '连接AE，延长AE过E至H，使EH=EA；连接CH、DH。本问H按这个作法重新定义。',
+         '① AE=EH（作图），BE=EC（E是BC中点）。\n② A、E、H共线，B、E、C共线，故∠AEB=∠HEC（对顶角）。\n③ 所以△AEB≌△HEC（SAS），对应为A↔H、E↔E、B↔C。\n④ 得CH=AB；结合AB=CD，得CH=CD。\n⑤ 还得∠ABE=∠HCE（对应角）。\n⑥ 这两个角是一组内错角，故AB∥CH。',
+         'CH=CD，AB∥CH；E既是BC中点，也是AH中点。',
+         '本问H在AE的延长线上，与前两问BF延长线上的H分别定义，不能混用。'),
+    step('第（3）问', '第2步：在哪个三角形里得到EF∥DH？', 'ae_mid',
+         'F是AD中点；倍长AE又让E成为AH中点。于是这两个中点落在△ADH的两条边上，正好能把EF与DH联系起来。',
+         '突出△ADH：E在AH上、F在AD上，连接两个中点得到EF。',
+         '① 在△ADH中，AF=FD，所以F是AD中点。\n② A、E、H共线且AE=EH，所以E是AH中点。\n③ 由中点连线性质，EF∥DH。\n④ 又G、F、E共线，因此GF∥DH。\n⑤ 连同上页AB∥CH及G、A、B共线，还得到AG∥CH。',
+         '两组关键平行：GF∥DH，AG∥CH。它们正是通向△AGD的桥梁。',
+         '这里使用的是△ADH的中点连线，不是△ABC的中点连线。'),
+    step('第（3）问', '第3步：严格证明你找到的△DHC等边', 'ae_equilateral',
+         '上面已经得到CH=CD。再把∠EFC=60°移到D处，就能确定等腰△DHC的两个底角，从而得到等边。',
+         '突出△DHC，并比较F处∠EFC与D处∠CDH。',
+         '① EF∥DH，且FC与DC在同一直线上、方向相同。\n② ∠CDH与∠EFC是同位角，所以∠CDH=60°。\n③ CH=CD，因此△DHC是等腰三角形，底边是DH。\n④ ∠DHC=∠CDH=60°（等边对等角）。\n⑤ ∠HCD=180°-60°-60°=60°，故△DHC是等边三角形。',
+         '△DHC等边。相等边CH、CD的公共顶点是C，底角在D、H。',
+         '这里已确认你的构造可行；下一步不直接判断△AGD，先转看△AGF。'),
+    step('第（3）问', '第4步：从△DHC转到△AGF，是关键的一步', 'ae_agf',
+         '△AGD暂时缺少边长关系。但F是AD中点，只要先证明△AGF等边，就能得到GF=AF=FD，再使用等腰△GFD。',
+         '上方突出△AGF，下方突出△DHC；A、F、D、C共线，两组斜边分别平行。',
+         '① AG∥CH；AG与CH反向，AF与CD也反向。\n   两条射线同时反向，所以∠GAF=∠HCD=60°。\n② GF∥DH；FA与DC反向，FG与DH也反向。\n   所以∠AFG=∠CDH=60°。\n③ △AGF的第三个角∠AGF=180°-60°-60°=60°。\n④ 因而△AGF等边，得到AG=GF=AF。\n⑤ 原题AF=FD，所以GF=FD。',
+         '由等边△DHC的角，得到等边△AGF，再得到GF=FD。',
+         '直接连接两种结构的不是GD，而是GF：它既在等边△AGF中，又在等腰△GFD中。'),
     step('第（3）问', '第5步：为什么会出现120°和30°？', 'h3_gfd',
          'F在AD上，FA与FD方向相反。因此等边△AGF的60°旁边，恰好是一个120°；再利用GF=FD求出两个底角。',
          '单独放大△GFD，保留A以便看清FA、FD是两条反向射线。',
@@ -158,7 +158,51 @@ def angle_comparisons(c, b, kind):
     c.setStrokeColorRGB(*GRAY);c.setLineWidth(.5);c.line(8,110,252,110)
 
 
+def ae_geometry(b):
+    p=b.geometry('h3')
+    p.pop('T')
+    p['H']=sub(mul(p['E'],2),p['A'])
+    return p
+
+
+def ae_figure(c,key,b):
+    p=ae_geometry(b)
+    keep={'ae_sas':['A','B','C','D','E','F','H'],
+          'ae_mid':['A','D','E','F','H','C'],
+          'ae_equilateral':['A','B','C','D','E','F','H'],
+          'ae_agf':['A','D','C','F','G','H']}[key]
+    d=Drawing(c,{k:p[k] for k in keep},base.txt)
+    offsets={'A':(-14,5),'B':(-14,-10),'C':(5,3),'D':(2,8),
+             'E':(-4,-14),'F':(-12,6),'G':(-4,8),'H':(2,-14)}
+    if key=='ae_sas':
+        d.edges([('A','B'),('B','C'),('C','A'),('A','H'),('D','H'),('C','H'),('F','E')])
+        d.triangle(['A','E','B'],RED);d.triangle(['H','E','C'],BLUE)
+        for a,z in [('A','E'),('E','H')]:d.tick(a,z)
+        for a,z in [('B','E'),('E','C')]:d.tick(a,z,2)
+    elif key=='ae_mid':
+        d.edges([('A','C'),('A','H'),('D','H')])
+        d.triangle(['A','D','H'],BLUE);d.segment('E','F',RED,2)
+        for a,z in [('A','E'),('E','H')]:d.tick(a,z)
+        for a,z in [('A','F'),('F','D')]:d.tick(a,z,2)
+    elif key=='ae_equilateral':
+        d.edges([('A','B'),('B','C'),('A','C'),('A','H'),('F','E')])
+        d.triangle(['D','H','C'],BLUE)
+        d.segment('D','H',RED,1.8);d.segment('F','E',RED,1.8)
+        d.tick('C','H');d.tick('C','D')
+        d.angle('F','E','C','60°',RED,17);d.angle('D','C','H','60°',RED,17)
+    else:
+        offsets['F']=(5,-13)
+        d.edges([('A','C')]);d.triangle(['A','G','F'],RED);d.triangle(['D','H','C'],BLUE)
+        d.segment('A','G',BLUE,1.8);d.segment('C','H',BLUE,1.8)
+        d.segment('F','G',GREEN,1.8);d.segment('D','H',GREEN,1.8)
+        d.angle('A','G','F','60°',RED,15);d.angle('F','A','G','60°',RED,15)
+        d.angle('C','H','D','60°',BLUE,7);d.angle('D','C','H','60°',BLUE,7)
+    d.labels(offsets)
+
+
 def figure(c, key, b):
+    if key.startswith('ae_'):
+        ae_figure(c,key,b);return
     if key in ['h1_angles', 'h2_angles']:
         angle_comparisons(c, b, key[:2]);return
     if key.startswith('lemma'):
@@ -269,7 +313,7 @@ def overview(c,page,b):
     y=base.txt(c,'原题（原图所示位置）',18*MM,y-10,size=11,lead=17)
     y=base.txt(c,b.HARD,18*MM,y-4,size=10,lead=17)
     b.image_fit(c,b.ROOT/'sources/challenge_630.png',18*MM,86*MM,174*MM,52*MM)
-    base.txt(c,'读图先记住：\n图a：M、N是延长线上的交点；图b：O=AB与CD的交点。\n图c：G—A—B共线，A—F—D—C共线；T是解题时新作的点。\n本版保留原题，只重写教师解释。图b按原图补充的交点定义及出处见README。',18*MM,76*MM,size=10,lead=17)
+    base.txt(c,'读图先记住：\n图a：M、N是延长线上的交点；图b：O=AB与CD的交点。\n图c：G—A—B共线，A—F—D—C共线；本问延长AE至H，使EH=EA。\n各问辅助点H分别定义。图b按原图补充的交点定义及出处见README。',18*MM,76*MM,size=10,lead=17)
     c.showPage()
 
 
@@ -279,11 +323,11 @@ RECAP = [
     ('第（2）问：同一构造，重新辨认角',
      '仍倍长BF至H → DH=CD、AB∥DH、MN∥CH → ∠OMN=∠DCH、∠ONM=∠DHC → M、N两角相等 → OM=ON。只能确定等腰。'),
     ('第（3）问：三个三角形，各有不同作用',
-     '反推TF=FC，取TA=DC → EF∥TB → △TAB等边 → 对顶角和内错角使△AGF等边 → GF=AF=FD → △GFD等腰，得120°及两个30° → 在G处相加60°+30°，所以△AGD直角。'),
+     '延长AE至H，使EH=EA → △AEB≌△HEC → CH=CD且CH∥AB → △ADH中EF∥DH → △DHC等边 → 两组平行把60°转到△AGF，使它等边 → GF=AF=FD → △GFD等腰，得两个30° → 在G处相加60°+30°，所以△AGD直角。'),
     ('教师追问及可核对的回答',
-     '问：为什么T在A外侧？答：这样TF=TA+AF，能与FC=FD+DC逐项比较，取TA=DC即可。\n问：为何不能见60°就认等边？答：必须再用等腰条件或求出第二个60°。\n问：GF=FD从哪来？答：△AGF等边给GF=AF，原中点给AF=FD。\n问：直角在哪里？答：G处，因为∠AGD=∠AGF+∠FGD=60°+30°。'),
+     '问：△DHC怎样连到△AGD？答：先通过AG∥CH、GF∥DH，把60°转到△AGF，得到GF=AF=FD。\n问：能否得到△DHC等边就直接说△AGD直角？答：不能，必须补上△AGF等边及△GFD等腰的推理。\n问：GF=FD从哪来？答：△AGF等边给GF=AF，原中点给AF=FD。\n问：直角在哪里？答：G处，因为∠AGD=∠AGF+∠FGD=60°+30°。'),
     ('讲课时的用法',
-     '先让学生在原图上指出对应的三角形、边、角，再展示下一页。讲后遮住详解，要求学生重画H或T并复述每一个等号的理由。已经会的页可以跳过，无须把整份详解当作逐字朗读稿。'),
+     '先让学生在原图上指出对应的三角形、边、角，再展示下一页。讲后遮住详解，要求学生重新倍长中线作H，并复述每一个等号的理由。第三问也可取T走另一条路线，但T不是必须的辅助点。'),
 ]
 
 
@@ -298,10 +342,10 @@ def recap(c,page):
 
 
 INTRO = [
-    ('本次修订了什么', '原版把前两问的对应角、第三问的辅助点动机写得过快。本版把三问拆成12个图文步骤，并增加两页中点引理；一个关键结论占一页，射线方向和角的来源单独解释。学生题面、选题和分值保持一致。'),
+    ('本次修订了什么', '三问共12个图文步骤，另附两页中点引理。第三问现采用用户提出的倍长AE法，完整证明△DHC等边，再借△AGF连到△AGD。原T点法是另一种选法，原先“必须另取T”的说法过于绝对，现已纠正。学生题面与分值保持一致。'),
     ('两题的定位与安排', '题1是中等题，建议10—12分钟；题2是综合压轴题，建议25—35分钟。两题独立完成约40—45分钟，再用约45分钟讲解，余下时间用于批改、追问和遮住答案后重建辅助线。'),
     ('先备知识', '全等SAS、平行线与角、等腰和等边三角形、中点。若中点连线性质尚未学，先看本版两页引理；证明只用两次SAS，无需相似、勾股定理或根式。'),
-    ('答案与评分', '题1：（1）BC=CF+CD；（2）BC=CF-CD，各6分。题2：（1）∠BME=∠CNE，6分；（2）OM=ON，6分；（3）△AGD直角，直角在G，12分。第三问建议：构造T及中点4分、△TAB等边2分、△AGF等边2分、等腰角度与直角结论4分。'),
+    ('答案与评分', '题1：（1）BC=CF+CD；（2）BC=CF-CD，各6分。题2：（1）∠BME=∠CNE，6分；（2）OM=ON，6分；（3）△AGD直角，直角在G，12分。第三问建议：倍长AE及全等4分、△DHC等边2分、△AGF等边2分、等腰角度与直角结论4分。'),
     ('来源与文件', '原题、原图与固定版本出处保留在README及sources。本版图形为独立教学重绘。除这份完整教师版，另提供只含三问压轴题的challenge_detailed.pdf、Word和在线图文版，便于手机阅读。'),
 ]
 
@@ -364,3 +408,16 @@ def build(b):
             lesson_page(c,s,page,b);page+=1
         recap(c,page);c.save()
         word_and_markdown(b,challenge_only)
+    # Short, directly shareable extract of the user's AE construction.
+    c=canvas.Canvas(str(b.ROOT/'third_ae_solution.pdf'),pagesize=b.PAGE)
+    parts=['# 第（3）问：倍长AE法',
+           '这条辅助线思路由用户提出。延长AE过E至H，使EH=EA；H按本问重新定义。T点法仍可使用，但不是必须的选法。',
+           b.HARD.split('（3）',1)[1],
+           '连接△DHC与△AGD的关键中间结构是△AGF：先证它等边，得到GF=AF=FD，再利用等腰△GFD。']
+    for page,s in enumerate([s for s in LESSONS if s['group']=='第（3）问'],1):
+        lesson_page(c,s,page,b)
+        parts.extend(['## '+s['title'],'**为什么这样想：** '+s['why'],
+                      f"![本步图](teaching_figures/{s['key']}.png)",'**作图／看图：** '+s['action'],
+                      s['proof'].replace('\n','\n\n'),'**结论：** '+s['result']])
+    c.save()
+    (b.ROOT/'third_ae_solution.md').write_text('\n\n'.join(parts)+'\n',encoding='utf-8')
