@@ -100,38 +100,12 @@ def diagram(c,key):
 
 
 def step(title,key,action,proof,result):return dict(title=title,key=key,action=action,proof=proof,result=result)
-STEPS=[
- ('题1：中等题',[
+MEDIUM_STEPS=[
   step('（1）旋转全等，再把BD拆成两段','m1','连接CF，比较△BAD与△CAF。',
        '由∠BAC=90°、∠ABC=45°，得AB=AC。\n正方形给AD=AF、∠DAF=90°。\n∠BAD=90°-∠DAC=∠CAF。\n所以△BAD≌△CAF（SAS），BD=CF。\nD在B、C之间，BC=BD+DC。','BC=CF+CD。'),
   step('（2）同样全等，点的位置改用减法','m2','D移到BC越过C的延长线上，仍比较同一组三角形。',
        'AB=AC，AD=AF。\n此时∠BAD=90°+∠CAD，\n∠CAF=90°+∠CAD，两角仍相等。\n△BAD≌△CAF（SAS），BD=CF。\n现在B、C、D依次共线，BD=BC+CD。','BC=CF-CD。'),
- ]),
- ('题2（1）：中点制造等腰三角形',[
-  step('第1步：延长BF，把F变成第二条线段的中点','h1_sas','延长BF过F到H，使FH=FB；连接DH、CH。',
-       'AF=DF（原有中点）。\nBF=FH（新构造）。\n∠AFB=∠DFH（对顶角）。\n所以△AFB≌△DFH（SAS）。\n得到DH=AB，且由对应角得DH∥AB。','DH=AB=CD，DH∥AB；F是BH中点。'),
-  step('第2步：中点给平行，等腰给等角','h1_iso','单独突出△BHC的中点连线EF和等腰△DHC。',
-       '在△BHC中，E是BC中点，F是BH中点，故EF∥CH。\nDH=CD，所以△DHC为等腰三角形，∠DHC=∠DCH。\nAB∥DH，EF∥CH，且C、D、N共线。\n因此∠BME=∠DHC，∠CNE=∠DCH。','∠BME=∠CNE。'),
- ]),
- ('题2（2）：换位置，重新识别对应角',[
-  step('第1步：把第（1）问的辅助构造迁移过来','h2_sas','仍延长BF至H，使FH=FB；连接DH、CH。',
-       '原图位置变了，但AF=DF、BF=FH及对顶角仍成立。\n所以△AFB≌△DFH（SAS），DH=AB=CD，DH∥AB。\nE是BC中点，F是BH中点，仍有EF∥CH。','△DHC等腰，且MN∥HC，AB∥DH。'),
-  step('第2步：先找大三角形里的两个相等角','h2_iso','突出△DHC，并把MN所在直线与CH作对照。',
-       'DH=DC，所以∠DHC=∠DCH。\n图b中O、N在直线AB上，O、M在直线CD上。\n利用AB∥DH、MN∥HC，可将△OMN的两个底角分别对应到△DHC的两个底角。','∠OMN=∠DCH，∠ONM=∠DHC。'),
-  step('第3步：放大看△OMN，写出形状','h2_result','放大△OMN，标出M、N处的相等角。',
-       '∠OMN=∠DCH，\n∠ONM=∠DHC。\n而∠DCH=∠DHC，\n所以∠OMN=∠ONM。\n等角对等边，得到OM=ON。','△OMN是等腰三角形，OM=ON；顶角度数不固定。'),
- ]),
- ('题2（3）：末问需要新的辅助点',[
-  step('第1步：在CA延长线上复制CD','h3_mid','延长CA过A到T，使AT=CD（=AB），连接TB。',
-       'A、F、D、C依次共线，AF=FD。\nTF=TA+AF；FC=FD+DC。\n因为TA=DC，所以TF=FC，F恰为TC中点。\nE是BC中点，于是△TBC中EF是中点连线，EF∥TB。','新的辅助点T使EF∥TB，且AT=AB。'),
-  step('第2步：60°条件使△TAB变为等边','h3_tab','突出△TAB，用EF∥TB把60°搬到T。',
-       'EF∥TB，TA与FC同向共线，\n所以∠BTA=∠EFC=60°。\n又AT=AB，△TAB的两个底角相等，故∠TBA=60°。\n第三个角∠TAB也为60°。','△TAB为等边三角形，∠TAB=60°。'),
-  step('第3步：放大看△AGF，证明它是等边','h3_agf','放大△AGF；沿用上一步G、A、B共线，T、A、F共线的关系。',
-       '∠GAF与∠TAB为对顶角，所以∠GAF=60°。\nFG∥TB，射线FA与TA反向、射线FG与TB反向，故∠AFG=∠BTA=60°。\n因此△AGF为等边三角形。\nAF=FD（原有中点），于是GF=AF=FD。','AG=GF=AF=FD，∠AGF=60°。'),
-  step('第4步：用120°与30°拼出直角','h3_result','放大△AGD，突出等腰△GFD，在G处标直角。',
-       'FA、FD反向共线，\n∠GFD=180°-∠GFA=120°。\nGF=FD，所以∠FGD=∠FDG=30°。\nF在AD上，故∠AGD=∠AGF+∠FGD=60°+30°=90°。','△AGD为直角三角形，∠AGD=90°，∠ADG=30°。'),
- ]),
-]
+ ]
 
 
 def header(c,title,page):
@@ -181,11 +155,12 @@ def student():
 
 
 def render_figures():
-    for _,steps in STEPS:
-        for s in steps:
-            buf=io.BytesIO();c=canvas.Canvas(buf,pagesize=(260,220));diagram(c,s['key']);c.save()
-            pdf=buf.getvalue();(ROOT/'teaching_figures'/f"{s['key']}.pdf").write_bytes(pdf)
-            d=fitz.open(stream=pdf,filetype='pdf');d[0].get_pixmap(matrix=fitz.Matrix(3,3)).save(ROOT/'teaching_figures'/f"{s['key']}.png")
+    for item in MEDIUM_STEPS:
+        buf=io.BytesIO();c=canvas.Canvas(buf,pagesize=(260,220));diagram(c,item['key']);c.save()
+        pdf=buf.getvalue();path=ROOT/'teaching_figures'/item['key']
+        path.with_suffix('.pdf').write_bytes(pdf)
+        doc=fitz.open(stream=pdf,filetype='pdf')
+        doc[0].get_pixmap(matrix=fitz.Matrix(3,3)).save(path.with_suffix('.png'))
 
 
 def block(c,s,top):
@@ -198,53 +173,8 @@ def block(c,s,top):
 
 
 def teacher():
-    c=canvas.Canvas(str(ROOT/'extra_teacher.pdf'),pagesize=PAGE);page=1
-    header(c,'教师版｜难度定位、先备知识与课堂安排',page)
-    intro=[
-      ('为什么这两题分档','题1只需一次SAS识别BD=CF，再按D的位置作加减，作为中等题。题2前两问需要主动倍长BF，把AD的中点转换为BH的中点，再用中点连线和平行线找到等腰结构；第三问要放弃机械沿用H，另构造T，并连续识别两个等边三角形和一个等腰三角形。按辅助线层数和末问迁移要求，题2与原卷24题的中点构造、25题的特殊三角形综合要求相近。'),
-      ('知识范围','全等SAS、等腰与等边三角形、平行线角关系、中点性质。两题均不需要勾股定理、根式运算、相似、圆或函数。中点连线的平行性质若尚未学，可先给出，并用附录的两次SAS补证；不要将未学过性质直接判为能力不足。'),
-      ('两小时的一种安排','独立完成两题40—45分钟；批改与追问10分钟；重点讲解40—45分钟；遮住原解重建关键辅助线15分钟；最后5分钟复述。若与前四题混用，应替换其中一部分，不能把六道综合题都按原50分钟塞进去。'),
-      ('本次答案与评分','题1：（1）BC=CF+CD；（2）BC=CF-CD。各6分：全等条件3分、CF=BD及结论3分。\n题2：（1）∠BME=∠CNE；（2）OM=ON，△OMN为等腰三角形；（3）∠AGD=90°，∠ADG=30°。第（1）（2）问各6分；末问12分，建议构造T并得到F为TC中点4分、证明△TAB等边2分、证明△AGF等边2分、等腰△GFD角度与直角结论4分。'),
-      ('出处说明','题1取公开题库T22-A01-08的前两问，题2取公开讲义习题6.25.11完整三问。原图、原文摘录、固定版本链接与许可随包保存；图b中O已在原图标出，本次按原图补写交点定义，并明确M、N、O互异，保持原图所示的非退化三角形情形。下面各步骤图是独立重绘的教学图。'),
-    ]
-    y=252*MM
-    for title,body in intro:
-        y=txt(c,title,18*MM,y,size=11,lead=17)
-        y=txt(c,body,18*MM,y-2,size=10,lead=15)-9
-    if y<24*MM:raise ValueError('Intro overflow')
-    c.showPage();page+=1
-    for title,steps in STEPS:
-        for start in range(0,len(steps),2):
-            header(c,'教师版｜'+title,page)
-            block(c,steps[start],250)
-            if start+1<len(steps):block(c,steps[start+1],140)
-            c.showPage();page+=1
-    header(c,'教师版｜中点引理与即时回练',page)
-    append=[
-      ('中点连线平行性质：只用两次SAS','△TUV中，X、Y分别为TU、TV中点。延长XY至Z，使YZ=YX。由TY=YV、YX=YZ和对顶角，△TYX≌△VYZ（SAS），所以VZ=TX=UX，VZ∥UX。连接UZ。由UX=VZ、UZ公共和内错角，△XUZ≌△VZU（SAS），得XZ=VU，XZ∥VU，进而XY∥UV。所配逐步图见原教师图解附录（链接在README），可在课前补讲。'),
-      ('末问必须讲透的四个问题','①为什么在CA越过A的方向取T，而不是在AC越过C的方向？\n②怎样从AT=CD和AF=FD推出TF=FC？\n③哪一步用到了∠EFC=60°？\n④为什么最后答案是G处直角，而不是把△AGD直接认成等边？'),
-      ('即时回练，不另编题','遮住教师答案，让学生只看图c，重新构造T、证明F是TC中点，并口述从平行线到60°、120°、30°、90°的完整链条。若讲解后能重建，记录为即时掌握；下一课还需陌生同型题检查迁移。'),
-      ('提示等级与记录','题1独立用时____分钟，____/12；题2____分钟，____/24。\n辅助线：□独立想到 □口头方向 □给出辅助点 □完整示范。\n中点性质：□已掌握 □需补讲。\n末问卡在：□构造T □证明中点 □角度迁移 □特殊三角形 □合并角度。'),
-    ]
-    y=252*MM
-    for title,body in append:
-        y=txt(c,title,18*MM,y,size=11,lead=17);y=txt(c,body,18*MM,y-2,size=10,lead=15)-10
-    c.showPage();c.save()
-    d=base.word_base('补充两题：逐步配图教师答案')
-    d.sections[0].footer.paragraphs[0].text='逐步配图教师答案｜2026-10-17｜出处与编排说明见README'
-    d.add_heading('中等题与综合压轴题：教师说明',0)
-    text='# 两道补充题：逐步配图教师答案\n\n题目来源与编排说明见[README](README.md)。\n\n'
-    for title,body in intro:
-        d.add_heading(title,2);d.add_paragraph(body);text+=f'## {title}\n\n{body}\n\n'
-    for title,steps in STEPS:
-        for s in steps:
-            d.add_page_break();d.add_heading(title,0);d.add_heading(s['title'],1)
-            d.add_paragraph('作图：'+s['action']);d.add_picture(str(ROOT/'teaching_figures'/f"{s['key']}.png"),width=Cm(10.5))
-            d.add_paragraph(s['proof']);d.add_paragraph('本步结论：'+s['result'])
-            text+=f"## {title}｜{s['title']}\n\n![本步辅助线图](teaching_figures/{s['key']}.png)\n\n**作图：** {s['action']}\n\n"+s['proof'].replace('\n','\n\n')+f"\n\n**结论：** {s['result']}\n\n"
-    d.add_page_break();d.add_heading('中点引理与回练',0)
-    for title,body in append:d.add_heading(title,2);d.add_paragraph(body);text+=f'## {title}\n\n{body}\n\n'
-    d.save(ROOT/'extra_teacher.docx');(ROOT/'extra_teacher.md').write_text(text.rstrip()+'\n',encoding='utf-8')
+    import detailed_teacher
+    detailed_teacher.build(sys.modules[__name__])
 
 
 def bundle():
